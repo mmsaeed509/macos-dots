@@ -85,6 +85,7 @@ main() {
     run_module "fonts" || exit 1
     run_module "zshrc" || exit 1
     run_module "apps" || exit 1
+    run_module "tmux" || exit 1
     
     echo ""
     print_status "Setup completed successfully! 🎉"

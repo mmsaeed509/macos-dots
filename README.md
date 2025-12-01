@@ -26,8 +26,14 @@ The setup script will install and configure:
    - Cursor
    - Brave Browser
    - Termius
+   - Discord
    - Neovim
    - NvChad (Neovim configuration)
+   - tmux
+10. **tmux Configuration**:
+   - TPM (tmux plugin manager)
+   - Catppuccin theme
+   - Custom tmux configuration
 
 ## Usage
 
@@ -70,26 +76,11 @@ The setup is organized into modular scripts:
 - `modules/fonts.sh` - Font installation
 - `modules/zshrc.sh` - Zsh configuration setup
 - `modules/apps.sh` - Application installations
+- `modules/tmux.sh` - tmux configuration setup
 
 ### Application Configuration
 
-Applications are configured in `apps.txt` using a simple format:
-
-```
-app_name|cask_name|type
-```
-
-- **app_name**: Display name for the application
-- **cask_name**: Homebrew cask/formula name (leave empty to use app_name)
-- **type**: `cask` for GUI applications, `formula` for CLI tools (defaults to `cask`)
-
-Example:
-```
-cursor|cursor|cask
-neovim||formula
-```
-
-To add or remove applications, simply edit `apps.txt` - no need to modify the script!
+Applications are installed via Homebrew Cask (for GUI apps) or Homebrew formulas (for CLI tools). To add or remove applications, edit the `modules/apps.sh` file.
 
 ## Customizations
 

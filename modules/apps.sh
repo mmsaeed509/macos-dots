@@ -62,6 +62,18 @@ install_cask "Brave Browser" "brave-browser"
 # Install Termius
 install_cask "Termius" "termius"
 
+# Install Discord
+install_cask "Discord" "discord"
+
+# Install tmux
+print_info "Installing tmux..."
+if command -v tmux &> /dev/null; then
+    print_status "tmux is already installed"
+else
+    brew install tmux
+    print_status "tmux installed"
+fi
+
 # Install Neovim
 print_info "Installing Neovim..."
 if command -v nvim &> /dev/null; then
