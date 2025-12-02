@@ -65,6 +65,9 @@ install_cask "Termius" "termius"
 # Install Discord
 install_cask "Discord" "discord"
 
+# Install OBS Studio
+install_cask "OBS Studio" "obs"
+
 # Install tmux
 print_info "Installing tmux..."
 if command -v tmux &> /dev/null; then

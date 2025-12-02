@@ -36,7 +36,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED=" ✭"
 setopt prompt_subst
 
 # PROMPT="%F{011}%~ %F{050}%n@%m%F{010}"$'\n'" ❯ %f"
-PROMPT="%F{011}%~ %F{050}  %n@%m%F{010} "$'\n'" ❯ %f"
+PROMPT="%F{011}%~ %F{050}  %n@%m%F{010} "$'\n'" ❯ %f"
 RPROMPT='%F{050}${vcs_info_msg_0_}`git_prompt_status`'
 
 # disable bi-weekly auto-update checks. #

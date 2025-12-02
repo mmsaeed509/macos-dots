@@ -81,3 +81,4 @@ print_status "tmux setup complete"
 print_info "Note: Reload tmux configuration with: tmux source ~/.config/tmux/tmux.conf"
 print_info "Or restart your tmux session to apply changes"
 
+
