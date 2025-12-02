@@ -116,3 +116,4 @@ The following aliases are created (replacing Pacman commands):
 - The script will backup your existing `.zshrc` before overwriting it (saved as `~/.zshrc.backup.YYYYMMDD_HHMMSS`)
 - If applications are already installed, the script will skip them
 - Some applications (like Kiro) may not be available in Homebrew and may need manual installation
+- If the font does not change, you must change it manually.

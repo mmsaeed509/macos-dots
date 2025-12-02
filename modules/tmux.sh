@@ -82,3 +82,4 @@ print_info "Note: Reload tmux configuration with: tmux source ~/.config/tmux/tmu
 print_info "Or restart your tmux session to apply changes"
 
 
+
