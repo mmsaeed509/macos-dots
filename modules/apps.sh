@@ -68,6 +68,9 @@ install_cask "Discord" "discord"
 # Install OBS Studio
 install_cask "OBS Studio" "obs"
 
+# Install RustDesk
+install_cask "RustDesk" "rustdesk"
+
 # Install tmux
 print_info "Installing tmux..."
 if command -v tmux &> /dev/null; then

@@ -27,6 +27,7 @@ The setup script will install and configure:
    - Brave Browser
    - Termius
    - Discord
+   - RustDesk
    - OBS Studio
    - Neovim
    - NvChad (Neovim configuration)
