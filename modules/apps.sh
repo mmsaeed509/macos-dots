@@ -80,6 +80,27 @@ else
     print_status "tmux installed"
 fi
 
+# Install Azure CLI
+print_info "Installing Azure CLI..."
+if command -v az &> /dev/null; then
+    print_status "Azure CLI is already installed"
+else
+    brew install azure-cli
+    print_status "Azure CLI installed"
+fi
+
+# Install Azure DevOps CLI Extension
+if command -v az &> /dev/null; then
+    print_info "Installing Azure DevOps CLI extension..."
+    if az extension list --query "[?name=='azure-devops'].name" -o tsv 2>/dev/null | grep -q "azure-devops"; then
+        print_status "Azure DevOps extension is already installed"
+    else
+        az extension add --name azure-devops 2>/dev/null && print_status "Azure DevOps extension installed" || print_warning "Failed to install Azure DevOps extension"
+    fi
+else
+    print_warning "Azure CLI not found, skipping Azure DevOps extension installation"
+fi
+
 # Install Neovim
 print_info "Installing Neovim..."
 if command -v nvim &> /dev/null; then
