@@ -29,7 +29,7 @@ The setup script will install and configure:
    - Discord
    - RustDesk
    - OBS Studio
-   - Parallels Desktop
+   - VirtualBox
    - Azure CLI (with Azure DevOps extension)
    - Neovim
    - NvChad (Neovim configuration)
