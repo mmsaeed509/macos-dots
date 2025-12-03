@@ -30,6 +30,10 @@ The setup script will install and configure:
    - RustDesk
    - OBS Studio
    - VirtualBox
+   - Docker
+   - Podman
+   - Minikube
+   - kubectl
    - Azure CLI (with Azure DevOps extension)
    - Neovim
    - NvChad (Neovim configuration)

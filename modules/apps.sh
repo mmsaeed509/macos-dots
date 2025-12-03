@@ -74,6 +74,36 @@ install_cask "RustDesk" "rustdesk"
 # Install VirtualBox
 install_cask "VirtualBox" "virtualbox"
 
+# Install Docker
+install_cask "Docker" "docker"
+
+# Install Podman
+print_info "Installing Podman..."
+if command -v podman &> /dev/null; then
+    print_status "Podman is already installed"
+else
+    brew install podman
+    print_status "Podman installed"
+fi
+
+# Install Minikube
+print_info "Installing Minikube..."
+if command -v minikube &> /dev/null; then
+    print_status "Minikube is already installed"
+else
+    brew install minikube
+    print_status "Minikube installed"
+fi
+
+# Install kubectl
+print_info "Installing kubectl..."
+if command -v kubectl &> /dev/null; then
+    print_status "kubectl is already installed"
+else
+    brew install kubectl
+    print_status "kubectl installed"
+fi
+
 # Install tmux
 print_info "Installing tmux..."
 if command -v tmux &> /dev/null; then
