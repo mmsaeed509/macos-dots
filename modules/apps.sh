@@ -71,6 +71,9 @@ install_cask "OBS Studio" "obs"
 # Install RustDesk
 install_cask "RustDesk" "rustdesk"
 
+# Install Parallels Desktop
+install_cask "Parallels Desktop" "parallels"
+
 # Install tmux
 print_info "Installing tmux..."
 if command -v tmux &> /dev/null; then
