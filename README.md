@@ -21,23 +21,11 @@ The setup script will install and configure:
    - Custom prompt
    - Updated ASCII art (ozil instead of Exodia OS)
    - macOS-specific aliases
-9. **Applications**:
-   - Kiro
-   - Cursor
-   - Brave Browser
-   - Termius
-   - Discord
-   - RustDesk
-   - OBS Studio
-   - VirtualBox
-   - Docker
-   - Podman
-   - Minikube
-   - kubectl
-   - Azure CLI (with Azure DevOps extension)
-   - Neovim
-   - NvChad (Neovim configuration)
-   - tmux
+9. **Applications** (configurable via `apps.yaml`):
+   - **GUI Apps**: Kiro, Cursor, Brave Browser, Termius, Discord, OBS Studio, RustDesk, VirtualBox, Docker
+   - **CLI Tools**: Podman, Minikube, kubectl, OpenShift CLI (oc), tmux, Azure CLI, Neovim
+   - **Extensions**: Azure DevOps CLI extension
+   - **Special**: NvChad (Neovim configuration)
 10. **tmux Configuration**:
    - TPM (tmux plugin manager)
    - Catppuccin theme
@@ -55,8 +43,19 @@ chmod +x setup.sh modules/*.sh
 
 ### Running the Setup
 
+#### Basic Setup (without applications)
 ```bash
 ./setup.sh
+```
+
+#### Full Setup with Applications
+```bash
+./setup.sh --install-apps apps.yaml
+```
+
+#### Help
+```bash
+./setup.sh --help
 ```
 
 ### Running Individual Modules
@@ -67,8 +66,8 @@ You can also run individual modules if you only need to install specific compone
 # Example: Install only fonts
 ./modules/fonts.sh /path/to/repo
 
-# Example: Install only apps
-./modules/apps.sh /path/to/repo
+# Example: Install only apps from YAML config
+./modules/apps.sh /path/to/repo apps.yaml
 ```
 
 ## Module Structure
@@ -88,7 +87,55 @@ The setup is organized into modular scripts:
 
 ### Application Configuration
 
-Applications are installed via Homebrew Cask (for GUI apps) or Homebrew formulas (for CLI tools). To add or remove applications, edit the `modules/apps.sh` file.
+Applications are now configured via the `apps.yaml` file, which provides a structured way to manage installations:
+
+#### YAML Structure
+
+```yaml
+apps:
+  # GUI Applications (Homebrew Cask)
+  cask:
+    - name: cursor
+      package: cursor
+    - name: kiro
+      package: kiro
+      skip: true  # Skip installation
+
+  # CLI Tools (Homebrew)
+  brew:
+    - name: kubectl
+      package: kubectl
+    - name: openshift-cli
+      package: openshift-cli
+
+  # Extensions
+  extensions:
+    - name: azure-devops
+      type: az-extension
+
+  # Special installations
+  special:
+    - name: nvchad
+      type: git-clone
+```
+
+#### Adding/Removing Applications
+
+1. **Add new application**: Add entry to appropriate section in `apps.yaml`
+2. **Skip installation**: Set `skip: true` for any application
+3. **Remove application**: Either delete the entry or set `skip: true`
+
+#### Skip Functionality
+
+Use the `skip` field to temporarily disable installation of specific packages:
+
+```yaml
+- name: virtualbox
+  package: virtualbox
+  skip: true  # This will be skipped during installation
+```
+
+When skipped, the installer will show a warning message and continue with other packages.
 
 ## Customizations
 
@@ -118,9 +165,28 @@ The following aliases are created (replacing Pacman commands):
 - `autoremove` → `brew autoremove`
 
 
+## Configuration Files
+
+### apps.yaml
+
+The `apps.yaml` file controls which applications are installed. It supports:
+
+- **Multiple installation types**: cask, brew, extensions, special
+- **Skip functionality**: Set `skip: true` to skip any package
+- **Package mapping**: Use different package names than display names
+- **Structured organization**: Clear separation of GUI apps, CLI tools, etc.
+
+### Command Line Options
+
+- `--install-apps <file>`: Install applications from specified YAML file
+- `--help`: Show usage information
+
 ## Notes
 
-- The script will backup your existing `.zshrc` before overwriting it (saved as `~/.zshrc.backup.YYYYMMDD_HHMMSS`)
-- If applications are already installed, the script will skip them
-- Some applications (like Kiro) may not be available in Homebrew and may need manual installation
-- If the font does not change, you must change it manually.
+- **Backup**: The script will backup your existing `.zshrc` before overwriting it (saved as `~/.zshrc.backup.YYYYMMDD_HHMMSS`)
+- **Duplicate detection**: If applications are already installed, the script will skip them
+- **Manual installation**: Some applications (like Kiro) may not be available in Homebrew and are marked with `skip: true` by default
+- **Font changes**: If the font does not change after installation, you must change it manually in your terminal settings
+- **Selective installation**: Applications are only installed when using the `--install-apps` flag
+- **Python dependency**: The YAML parser uses Python3 with PyYAML when available, falls back to AWK parsing
+- **Modular design**: Each component can be run independently or skipped as needed

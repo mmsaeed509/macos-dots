@@ -40,20 +40,54 @@ print_warning() {
 # Function to run a module
 run_module() {
     local module_name=$1
+    local extra_arg=$2
     local module_file="$MODULES_DIR/$module_name.sh"
     
     if [[ -f "$module_file" ]]; then
         print_info "Running module: $module_name"
-        bash "$module_file" "$SCRIPT_DIR" || {
-            print_error "Module $module_name failed"
-            return 1
-        }
+        if [[ -n "$extra_arg" ]]; then
+            bash "$module_file" "$SCRIPT_DIR" "$extra_arg" || {
+                print_error "Module $module_name failed"
+                return 1
+            }
+        else
+            bash "$module_file" "$SCRIPT_DIR" || {
+                print_error "Module $module_name failed"
+                return 1
+            }
+        fi
         print_status "Module $module_name completed"
     else
         print_error "Module $module_name.sh not found in $MODULES_DIR"
         return 1
     fi
 }
+
+# Parse command line arguments
+INSTALL_APPS=""
+APPS_YAML_FILE=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --install-apps)
+            INSTALL_APPS="true"
+            APPS_YAML_FILE="$2"
+            shift 2
+            ;;
+        -h|--help)
+            echo "Usage: $0 [OPTIONS]"
+            echo "Options:"
+            echo "  --install-apps <file>    Install applications from specified YAML file"
+            echo "  -h, --help              Show this help message"
+            exit 0
+            ;;
+        *)
+            print_error "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
 
 # Main setup function
 main() {
@@ -84,7 +118,20 @@ main() {
     run_module "lsd" || exit 1
     run_module "fonts" || exit 1
     run_module "zshrc" || exit 1
-    run_module "apps" || exit 1
+    
+    # Only run apps module if --install-apps flag is provided
+    if [[ "$INSTALL_APPS" == "true" ]]; then
+        if [[ -n "$APPS_YAML_FILE" && -f "$APPS_YAML_FILE" ]]; then
+            print_info "Installing apps from: $APPS_YAML_FILE"
+            run_module "apps" "$APPS_YAML_FILE" || exit 1
+        else
+            print_error "Apps YAML file not found: $APPS_YAML_FILE"
+            exit 1
+        fi
+    else
+        print_info "Skipping apps installation (use --install-apps <file> to install apps)"
+    fi
+    
     run_module "tmux" || exit 1
     
     echo ""

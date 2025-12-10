@@ -1,0 +1,65 @@
+# Applications and Tools Configuration
+# YAML format for better structure and readability
+# Set skip: true to skip installation of a package
+
+apps:
+  # GUI Applications (Homebrew Cask)
+  cask:
+    - name: kiro
+      package: kiro
+      skip: true
+    - name: cursor
+      package: cursor
+      skip: true
+    - name: brave-browser
+      package: brave-browser
+      skip: true
+    - name: termius
+      package: termius
+      skip: false
+    - name: discord
+      package: discord
+      skip: false
+    - name: obs
+      package: obs
+      skip: false
+    - name: rustdesk
+      package: rustdesk
+      skip: false
+    - name: virtualbox
+      package: virtualbox
+      skip: false
+    - name: docker
+      package: docker
+      skip: false
+
+  # CLI Tools (Homebrew)
+  brew:
+    - name: podman
+      package: podman
+    - name: minikube
+      package: minikube
+    - name: kubectl
+      package: kubectl
+    - name: openshift-cli
+      package: openshift-cli
+    - name: tmux
+      package: tmux
+    - name: azure-cli
+      package: azure-cli
+    - name: neovim
+      package: neovim
+
+  # Extensions
+  extensions:
+    - name: azure-devops
+      type: az-extension
+      skip: false
+
+  # Special installations
+  special:
+    - name: nvchad
+      type: git-clone
+      repo: https://github.com/NvChad/NvChad
+      target: ~/.config/nvim
+      skip: false
