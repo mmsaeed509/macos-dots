@@ -49,6 +49,8 @@ apps:
       package: azure-cli
     - name: neovim
       package: neovim
+    - name: awscli
+      package: awscli
 
   # Extensions
   extensions:
