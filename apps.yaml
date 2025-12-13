@@ -51,6 +51,8 @@ apps:
       package: neovim
     - name: awscli
       package: awscli
+    - name: terraform
+      package: terraform
 
   # Extensions
   extensions:
